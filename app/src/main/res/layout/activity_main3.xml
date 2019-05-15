@@ -98,7 +98,7 @@
             android:id="@+id/emptyLetter2"
             android:layout_width="80dp"
             android:layout_height="90dp"
-            android:background="@drawable/a"
+            android:background="@drawable/o"
             android:visibility="invisible"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
