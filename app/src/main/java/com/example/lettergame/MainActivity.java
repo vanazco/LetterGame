@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     Letter a,e,i,o,u,empty,empty2;
@@ -19,9 +18,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final int random = (int) (Math.random() * 3 + 3);
+        //random para elegir el layout que saldrá
+        final int random = (int) (Math.random() * 3 + 1);
+
+        //Inicializamos algunas variables
         empty = new Letter();
         handler = new Handler();
+        empty2 = new Letter();
+        a = new Letter();
+        e = new Letter();
+        i = new Letter();
+        o = new Letter();
+        u = new Letter();
+
+//      TODO: ESTO ES UN TODO
+
+//        Y ESTO Y COMENTARIO JAJA SALU3 :) <3
+
+        //cargamos layout en función del random
         if(random == 1){
             setContentView(R.layout.activity_main);
             empty.img = findViewById(R.id.emptyLetter2);
@@ -30,32 +44,29 @@ public class MainActivity extends AppCompatActivity {
             empty.img = findViewById(R.id.emptyLetter);
         }else{
             setContentView(R.layout.activity_main3);
-            empty2 = new Letter();
             empty.img = findViewById(R.id.emptyLetter2);
             empty2.img = findViewById(R.id.emptyLetter3);
         }
 
-        a = new Letter();
-        e = new Letter();
-        i = new Letter();
-        o = new Letter();
-        u = new Letter();
 
+        //Asignamos las vocales
         a.img = findViewById(R.id.letterA);
         e.img = findViewById(R.id.letterE);
         i.img = findViewById(R.id.letterI);
         o.img = findViewById(R.id.letterO);
         u.img = findViewById(R.id.letterU);
 
+        //Definimos los Listeners
         a.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Asignamos el valor de X y Y de las vocales ocultas
                 empty.x = empty.img.getLeft();
                 empty.y = empty.img.getTop();
-                Toast.makeText(MainActivity.this,Integer.toString(random),Toast.LENGTH_SHORT).show();
-                if(random == 3){
+                if(random > 2){
                     empty2.x = empty2.img.getLeft();
-                    empty2.x = empty2.img.getTop();
+                    empty2.y = empty2.img.getTop();
                     if(animation_started && !firstLetter){
                         moveLetter(a,empty.x,empty.y);
                         animation_started = false;
@@ -67,12 +78,13 @@ public class MainActivity extends AppCompatActivity {
                     moveLetter(a,empty.x,empty.y);
                     animation_started = false;
                 }
+
                 a.x = a.img.getLeft();
                 a.y = a.img.getTop();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(!a.correct)
+                        if(!a.correct && !firstLetter)
                             restorePosition(a,a.x,a.y);
                     }
                 },2000);
@@ -84,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 empty.x = empty.img.getLeft();
                 empty.y = empty.img.getTop();
-                if(random == 3){
+                if(random > 2){
                     empty2.x = empty2.img.getLeft();
-                    empty2.x = empty2.img.getTop();
+                    empty2.y = empty2.img.getTop();
                     if(animation_started && !firstLetter){
                         moveLetter(e,empty.x,empty.y);
                         animation_started = false;
@@ -115,9 +127,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 empty.x = empty.img.getLeft();
                 empty.y = empty.img.getTop();
-                if(random == 3){
+                if(random > 2){
                     empty2.x = empty2.img.getLeft();
-                    empty2.x = empty2.img.getTop();
+                    empty2.y = empty2.img.getTop();
                     if(animation_started && !firstLetter){
                         moveLetter(i,empty.x,empty.y);
                         animation_started = false;
@@ -146,9 +158,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 empty.x = empty.img.getLeft();
                 empty.y = empty.img.getTop();
-                if(random == 3){
+                if(random > 2){
                     empty2.x = empty2.img.getLeft();
-                    empty2.x = empty2.img.getTop();
+                    empty2.y = empty2.img.getTop();
                     if(animation_started && !firstLetter){
                         moveLetter(o,empty.x,empty.y);
                         animation_started = false;
@@ -177,9 +189,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 empty.x = empty.img.getLeft();
                 empty.y = empty.img.getTop();
-                if(random == 3){
+                if(random > 2){
                     empty2.x = empty2.img.getLeft();
-                    empty2.x = empty2.img.getTop();
+                    empty2.y = empty2.img.getTop();
                     if(animation_started && !firstLetter){
                         moveLetter(u,empty.x,empty.y);
                         animation_started = false;
@@ -205,14 +217,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void moveLetter(final Letter letter, Integer x, Integer y) {
+        //Creamos las animaciones
         ObjectAnimator moveX = ObjectAnimator.ofFloat(letter.img,"x", x);
         ObjectAnimator moveY = ObjectAnimator.ofFloat(letter.img,"y",y);
+        //Los juntamos en un AnimatorSet
         AnimatorSet as = new AnimatorSet();
         as.playTogether(moveX,moveY);
         as.setDuration(2000);
         as.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation, boolean isReverse) {
+                //Comprobamos si la imagen de la letra es igual a la oculta
                 if(letter.img.getBackground().getConstantState() == empty.img.getBackground().getConstantState()){
                     letter.correct = true;
                     firstLetter = true;
@@ -224,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
         as.start();
     }
 
+    //Animacion de vuelta
     public void restorePosition(final Letter letter, Integer x, Integer y){
         ObjectAnimator moveX = ObjectAnimator.ofFloat(letter.img,"x", x);
         ObjectAnimator moveY = ObjectAnimator.ofFloat(letter.img,"y",y);
