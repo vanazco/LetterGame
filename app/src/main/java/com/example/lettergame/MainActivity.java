@@ -31,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
         o = new Letter();
         u = new Letter();
 
-//      TODO: ESTO ES UN TODO
-
-//        Y ESTO Y COMENTARIO JAJA SALU3 :) <3
 
         //cargamos layout en función del random
         if(random == 1){
@@ -70,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     if(animation_started && !firstLetter){
                         moveLetter(a,empty.x,empty.y);
                         animation_started = false;
-                    }else{
+                    }else if(animation_started){
                         moveLetter(a,empty2.x,empty2.y);
                         animation_started = false;
                     }
@@ -102,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     if(animation_started && !firstLetter){
                         moveLetter(e,empty.x,empty.y);
                         animation_started = false;
-                    }else{
+                    }else if(animation_started){
                         moveLetter(e,empty2.x,empty2.y);
                         animation_started = false;
                     }
@@ -133,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     if(animation_started && !firstLetter){
                         moveLetter(i,empty.x,empty.y);
                         animation_started = false;
-                    }else{
+                    }else if(animation_started){
                         moveLetter(i,empty2.x,empty2.y);
                         animation_started = false;
                     }
@@ -164,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                     if(animation_started && !firstLetter){
                         moveLetter(o,empty.x,empty.y);
                         animation_started = false;
-                    }else{
+                    }else if(animation_started){
                         moveLetter(o,empty2.x,empty2.y);
                         animation_started = false;
                     }
@@ -195,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                     if(animation_started && !firstLetter){
                         moveLetter(u,empty.x,empty.y);
                         animation_started = false;
-                    }else{
+                    }else if(animation_started){
                         moveLetter(u,empty2.x,empty2.y);
                         animation_started = false;
                     }
