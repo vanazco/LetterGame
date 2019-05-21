@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         if(!a.correct && !firstLetter)
                             restorePosition(a,a.x,a.y);
                     }
-                },2000);
+                },1500);
             }
         });
 
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                         if(!e.correct)
                             restorePosition(e,e.x,e.y);
                     }
-                },2000);
+                },1500);
             }
         });
 
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                         if(!i.correct)
                             restorePosition(i,i.x,i.y);
                     }
-                },2000);
+                },1500);
             }
         });
 
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
                         if(!o.correct)
                             restorePosition(o,o.x,o.y);
                     }
-                },2000);
+                },1500);
             }
         });
 
@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
                         if(!u.correct)
                             restorePosition(u,u.x,u.y);
                     }
-                },2000);
+                },1500);
             }
         });
     }
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
         //Los juntamos en un AnimatorSet
         AnimatorSet as = new AnimatorSet();
         as.playTogether(moveX,moveY);
-        as.setDuration(2000);
+        as.setDuration(1500);
         as.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation, boolean isReverse) {
@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
         ObjectAnimator moveY = ObjectAnimator.ofFloat(letter.img,"y",y);
         AnimatorSet as = new AnimatorSet();
         as.playTogether(moveX,moveY);
-        as.setDuration(2000);
+        as.setDuration(1500);
         as.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
