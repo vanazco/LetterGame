@@ -4,17 +4,20 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
     Letter a,e,i,o,u,empty,empty2;
     Handler handler;
     boolean animation_started = true;
     boolean firstLetter = false;
-
+    ImageView image;
+    MediaPlayer[] mp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +33,10 @@ public class MainActivity extends AppCompatActivity {
         i = new Letter();
         o = new Letter();
         u = new Letter();
+        mp = new MediaPlayer[3];
 
+        mp[1] = MediaPlayer.create(MainActivity.this,R.raw.error_sound);
+        mp[2] = MediaPlayer.create(MainActivity.this,R.raw.win_effect);
 
         //cargamos layout en función del random
         if(random == 1){
@@ -45,13 +51,29 @@ public class MainActivity extends AppCompatActivity {
             empty2.img = findViewById(R.id.emptyLetter3);
         }
 
-
         //Asignamos las vocales
         a.img = findViewById(R.id.letterA);
         e.img = findViewById(R.id.letterE);
         i.img = findViewById(R.id.letterI);
         o.img = findViewById(R.id.letterO);
         u.img = findViewById(R.id.letterU);
+        image = findViewById(R.id.imageView);
+
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(random == 1){
+                    mp[0] = MediaPlayer.create(MainActivity.this,R.raw.cat_sound);
+                    mp[0].start();
+                }else if(random == 2){
+                    mp[0] = MediaPlayer.create(MainActivity.this,R.raw.bear_sound);
+                    mp[0].start();
+                }else{
+                    mp[0] = MediaPlayer.create(MainActivity.this,R.raw.koala_sound);
+                    mp[0].start();
+                }
+            }
+        });
 
         //Definimos los Listeners
         a.img.setOnClickListener(new View.OnClickListener() {
@@ -228,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
                 if(letter.img.getBackground().getConstantState() == empty.img.getBackground().getConstantState()){
                     letter.correct = true;
                     firstLetter = true;
+                    mp[2].start();
                 }else{
                     letter.correct = false;
                 }
@@ -247,6 +270,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
+                mp[1].start();
                 animation_started = true;
             }
 
